@@ -4,7 +4,7 @@ resource "oci_core_instance" "new_instance" {
   availability_domain = var.oci_ad
   compartment_id      = var.compartment_id
   display_name        = var.instance_display_name
-  shape               = "VM.Standard.E4.Flex"
+  shape               = var.shape
   defined_tags        = var.schedule_tags
 
   availability_config {
@@ -16,10 +16,10 @@ resource "oci_core_instance" "new_instance" {
     assign_public_ip       = "false"
     display_name           = var.instance_display_name
     hostname_label         = var.instance_display_name
-    nsg_ids                = var.dev_and_ad_nsgs
+    nsg_ids                = var.nsgs
     private_ip             = var.instance_private_ip
     skip_source_dest_check = "false"
-    subnet_id              = var.dev_subnet_id
+    subnet_id              = var.subnet_id
   }
 
   instance_options {
@@ -55,5 +55,6 @@ resource "oci_core_instance" "new_instance" {
     boot_volume_size_in_gbs = var.boot_volume_size_in_gbs
     boot_volume_vpus_per_gb = var.boot_volume_vpus_per_gb
   }
+
 
 }
